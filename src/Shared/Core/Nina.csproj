@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="SyncSoft.ECP.Hosting" Version="2.9.7.3" />
+        <PackageReference Include="SyncSoft.ECP.MongoDB" Version="2.9.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="DataAccess\" />
+    </ItemGroup>
+
+</Project>

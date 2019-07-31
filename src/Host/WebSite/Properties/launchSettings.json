@@ -1,0 +1,13 @@
+﻿{
+    "$schema": "http://json.schemastore.org/launchsettings.json",
+    "profiles": {
+        "WebApi": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://+:5002",
+                "APP_REDIS_CONFIGS": "192.168.188.199,password=Famous901,defaultDatabase=0"
+            }
+        }
+    }
+}
