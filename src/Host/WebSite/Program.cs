@@ -15,6 +15,7 @@ namespace Nina.WebSite
                 .UseEcpBasicComponents()
                 .UseECPSecurityComponents()
                 .UseECPRedis()
+                .UseHomeComponents()
                 .UseConfigurations()
                 .Start();
 

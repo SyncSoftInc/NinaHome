@@ -9,8 +9,4 @@
         <PackageReference Include="SyncSoft.ECP.MongoDB" Version="2.9.7" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="DataAccess\" />
-    </ItemGroup>
-
 </Project>
