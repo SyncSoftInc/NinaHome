@@ -27,6 +27,11 @@ namespace Nina.WebSite.Api
         // *******************************************************************************************************************************
         #region -  CRUD  -
 
+        /// <summary>
+        /// Create Testimonial Message
+        /// </summary>
+        /// <param name="cmd">Message Information</param>
+        /// <returns></returns>
         [HttpPost("message")]
         public Task<string> CreateMessageAsync(CreateTestimonialMessageCommand cmd)
             => TestimonialMessageDAL.InsertMessageAsync(new TestimonialMessageDTO
@@ -38,16 +43,36 @@ namespace Nina.WebSite.Api
                 CreatedOnUtc = DateTime.UtcNow
             });
 
+        /// <summary>
+        /// Approve Testimonial Message
+        /// </summary>
+        /// <param name="cmd">Approve command information</param>
+        /// <returns></returns>
         [HttpPatch("message")]
         public Task<string> ApproveMessageAsync(ApproveTestimonialMessageCommand cmd)
             => TestimonialMessageDAL.ApproveMessageAsync(cmd.ID, cmd.Approved);
 
+        /// <summary>
+        /// Delete Testimonial Message
+        /// </summary>
+        /// <param name="id">Message ID</param>
+        /// <returns></returns>
         [HttpDelete("message/{id}")]
         public Task<string> DeleteMessageAsync(Guid id) => TestimonialMessageDAL.DeleteMessageAsync(id);
 
+        /// <summary>
+        /// Get Testimonial Message
+        /// </summary>
+        /// <param name="id">Message ID</param>
+        /// <returns></returns>
         [HttpGet("message/{id}")]
         public Task<TestimonialMessageDTO> GetMessageAsync(Guid id) => TestimonialMessageDAL.GetMessageAsync(id);
 
+        /// <summary>
+        /// Get Paged Testimonial Message
+        /// </summary>
+        /// <param name="query">Message Query</param>
+        /// <returns></returns>
         [HttpGet("messages")]
         public Task<PagedList<TestimonialMessageDTO>> GetMessagesAsync(GetTestimonialMessageQuery query) => TestimonialMessageDAL.GetMessagesAsync(query);
 

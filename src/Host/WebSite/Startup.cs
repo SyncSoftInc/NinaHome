@@ -5,10 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using SyncSoft.App.Components;
 using SyncSoft.App.Configurations;
 using SyncSoft.ECP.AspNetCore.Hosting;
 using System;
+using System.IO;
 
 namespace Nina.WebSite
 {
@@ -46,6 +49,18 @@ namespace Nina.WebSite
                 o.AuthenticationSchemes = new[] { CookieAuthenticationDefaults.AuthenticationScheme };
                 o.ConfigAuthenticationOptions = a => a.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
+            //services.AddMvcCore()
+            //    .AddApiExplorer();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Nina Home API", Version = "v1" });
+
+                c.SchemaFilter<SwaggerExcludeFilter>();
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Nina.WebSite.xml");
+                c.IncludeXmlComments(filePath);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -62,15 +77,31 @@ namespace Nina.WebSite
             }
 
             app.UseFileServer();
-
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+        }
+    }
+
+    public class SwaggerExcludeFilter : ISchemaFilter
+    {
+        public void Apply(Schema schema, SchemaFilterContext context)
+        {
+            if (schema?.Properties == null)
+                return;
+
+            schema.Properties.Remove("correlationId");
+            schema.Properties.Remove("claims");
         }
     }
 }

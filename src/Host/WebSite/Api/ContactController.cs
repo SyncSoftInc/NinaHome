@@ -27,6 +27,11 @@ namespace Nina.WebSite.Api
         // *******************************************************************************************************************************
         #region -  CRUD  -
 
+        /// <summary>
+        /// Create Contact Message
+        /// </summary>
+        /// <param name="cmd">Message Information</param>
+        /// <returns></returns>
         [HttpPost("message")]
         public Task<string> CreateMessageAsync(CreateContactMessageCommand cmd)
             => ContactMessageDAL.InsertMessageAsync(new ContactMessageDTO
@@ -39,12 +44,27 @@ namespace Nina.WebSite.Api
                 CreatedOnUtc = DateTime.UtcNow
             });
 
+        /// <summary>
+        /// Delete Contact Message
+        /// </summary>
+        /// <param name="id">Message ID</param>
+        /// <returns></returns>
         [HttpDelete("message/{id}")]
         public Task<string> DeleteMessageAsync(Guid id) => ContactMessageDAL.DeleteMessageAsync(id);
 
+        /// <summary>
+        /// Get Contact Message
+        /// </summary>
+        /// <param name="id">Message ID</param>
+        /// <returns></returns>
         [HttpGet("message/{id}")]
         public Task<ContactMessageDTO> GetMessageAsync(Guid id) => ContactMessageDAL.GetMessageAsync(id);
 
+        /// <summary>
+        /// Get Paged Contact Message
+        /// </summary>
+        /// <param name="query">Message Query</param>
+        /// <returns></returns>
         [HttpGet("messages")]
         public Task<PagedList<ContactMessageDTO>> GetMessagesAsync(GetContactMessageQuery query) => ContactMessageDAL.GetMessagesAsync(query);
 
