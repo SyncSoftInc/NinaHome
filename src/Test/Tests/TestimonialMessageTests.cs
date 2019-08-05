@@ -57,7 +57,11 @@ namespace Tests
         [Test, Order(1000)]
         public async Task Api_TestimonialMessage_GetPaged()
         {
-            var hr = await TestimonialMessageApi.GetMessagesAsync(new { Name = newCmd.Name }).ConfigureAwait(false);
+            var hr = await TestimonialMessageApi.GetMessagesAsync(new
+            {
+                Name = newCmd.Name,
+                //Approved = true
+            }).ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
             Assert.IsTrue(hr.IsSuccess);

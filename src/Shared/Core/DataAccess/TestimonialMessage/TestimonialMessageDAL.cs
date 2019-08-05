@@ -47,6 +47,11 @@ namespace Nina.DataAccess.TestimonialMessage
                 var nameFilter = Builders<TestimonialMessageDTO>.Filter.Regex(x => x.Name, query.Name);
                 filter = Builders<TestimonialMessageDTO>.Filter.And(filter, nameFilter);
             }
+            if (query.Approved.IsNotNull())
+            {
+                var approvedFilter = Builders<TestimonialMessageDTO>.Filter.Eq(x => x.Approved, query.Approved.Value);
+                filter = Builders<TestimonialMessageDTO>.Filter.And(filter, approvedFilter);
+            }
 
             // 输出数据
             var fluent = DB.TestimonialMessages.Find(filter);
