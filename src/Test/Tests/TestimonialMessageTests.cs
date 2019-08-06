@@ -27,7 +27,7 @@ namespace Tests
             var hr = await TestimonialMessageApi.CreateMessageAsync(newCmd).ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
-            Assert.IsTrue(hr.IsSuccess);
+            Assert.IsTrue(rs.IsSuccess());
             Assert.IsNotNull(rs);
         }
 
@@ -40,7 +40,7 @@ namespace Tests
             var hr = await TestimonialMessageApi.ApproveMessageAsync(updateCmd).ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
-            Assert.IsTrue(hr.IsSuccess);
+            Assert.IsTrue(rs.IsSuccess());
             Assert.IsNotNull(rs);
         }
 
@@ -74,7 +74,7 @@ namespace Tests
             var hr = await TestimonialMessageApi.DeleteMessageAsync(newCmd.ID).ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
-            Assert.IsTrue(hr.IsSuccess);
+            Assert.IsTrue(rs.IsSuccess());
             Assert.IsNotNull(rs);
         }
     }
