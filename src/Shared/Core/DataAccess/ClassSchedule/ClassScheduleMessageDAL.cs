@@ -26,11 +26,14 @@ namespace Nina.DataAccess.ContactMessage
         // *******************************************************************************************************************************
         #region -  CRUD  -
 
-        public Task<string> InsertMessageAsync(ClassScheduleMessageDTO dto) => DB.ClassScheduleMessages.TryInsertOneAsync(dto);
+        public Task<string> InsertMessageAsync(ClassScheduleMessageDTO dto)
+            => DB.ClassScheduleMessages.TryInsertOneAsync(dto);
 
-        public Task<string> DeleteMessageAsync(Guid id) => DB.ClassScheduleMessages.TryDeleteOneAsync(x => x.ID == id);
+        public Task<string> DeleteMessageAsync(Guid id)
+            => DB.ClassScheduleMessages.TryDeleteOneAsync(x => x.ID == id);
 
-        public Task<ClassScheduleMessageDTO> GetMessageAsync(Guid id) => DB.ClassScheduleMessages.TryFindAndGetOneAsync(x => x.ID == id);
+        public Task<ClassScheduleMessageDTO> GetMessageAsync(Guid id)
+            => DB.ClassScheduleMessages.TryFindAndGetOneAsync(x => x.ID == id);
 
         public async Task<PagedList<ClassScheduleMessageDTO>> GetMessagesAsync(GetClassScheduleMessageQuery query)
         {
