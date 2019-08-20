@@ -36,7 +36,7 @@ namespace Nina.WebSite.Api
         public Task<string> CreateMessageAsync(CreateClassScheduleMessageCommand cmd)
             => ClassScheduleMessageDAL.InsertMessageAsync(new ClassScheduleMessageDTO
             {
-                ID = cmd.ID,
+                ID = Guid.NewGuid(),
                 Name = cmd.Name,
                 Voice = cmd.Voice,
                 Email = cmd.Email,

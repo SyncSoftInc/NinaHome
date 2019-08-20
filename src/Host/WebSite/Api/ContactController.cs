@@ -36,7 +36,7 @@ namespace Nina.WebSite.Api
         public Task<string> CreateMessageAsync(CreateContactMessageCommand cmd)
             => ContactMessageDAL.InsertMessageAsync(new ContactMessageDTO
             {
-                ID = cmd.ID,
+                ID = Guid.NewGuid(),
                 Name = cmd.Name,
                 Phone = cmd.Phone,
                 Email = cmd.Email,

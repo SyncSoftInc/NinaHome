@@ -36,7 +36,7 @@ namespace Nina.WebSite.Api
         public Task<string> CreateMessageAsync(CreateTestimonialMessageCommand cmd)
             => TestimonialMessageDAL.InsertMessageAsync(new TestimonialMessageDTO
             {
-                ID = cmd.ID,
+                ID = Guid.NewGuid(),
                 Name = cmd.Name,
                 Message = cmd.Message,
                 Type = cmd.Type,

@@ -52,6 +52,14 @@ namespace Nina.WebSite
             //services.AddMvcCore()
             //    .AddApiExplorer();
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Nina Home API", Version = "v1" });
@@ -61,11 +69,14 @@ namespace Nina.WebSite
                 var filePath = Path.Combine(System.AppContext.BaseDirectory, "Nina.WebSite.xml");
                 c.IncludeXmlComments(filePath);
             });
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseReverseProxy();
+
+            app.UseCors("MyPolicy");
 
             if (env.IsDevelopment())
             {
