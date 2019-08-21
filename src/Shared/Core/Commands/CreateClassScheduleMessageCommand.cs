@@ -10,10 +10,10 @@ namespace Nina.Commands
         public Guid ID { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Voice { get; set; }
+        public string Phone { get; set; }
         [Required]
         public string Email { get; set; }
-        public string Class { get; set; }
+        public string Type { get; set; }
         public string Message { get; set; }
         public DateTime CreatedOnUtc { get; set; }
     }

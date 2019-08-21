@@ -43,9 +43,9 @@ namespace Nina.Api.TestimonialMessage
             return new HttpResult<ContactMessageDTO>(hr);
         }
 
-        public async Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(object query)
+        public async Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null)
         {
-            var hr = await HttpClient.GetAsync(null, new Uri("http://localhost:5002/api/testimonial/messages"), query).ConfigureAwait(false);
+            var hr = await HttpClient.GetAsync(null, new Uri($"http://localhost:5002/api/testimonial/messages?name={name}")).ConfigureAwait(false);
             return new HttpResult<PagedList<ContactMessageDTO>>(hr);
         }
 

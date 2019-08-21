@@ -37,9 +37,9 @@ namespace Nina.Api.ContactMessage
             return new HttpResult<ClassScheduleMessageDTO>(hr);
         }
 
-        public async Task<HttpResult<PagedList<ClassScheduleMessageDTO>>> GetMessagesAsync(object query)
+        public async Task<HttpResult<PagedList<ClassScheduleMessageDTO>>> GetMessagesAsync(string name = null, string email = null)
         {
-            var hr = await HttpClient.GetAsync(null, new Uri("http://localhost:5002/api/class/messages"), query).ConfigureAwait(false);
+            var hr = await HttpClient.GetAsync(null, new Uri($"http://localhost:5002/api/class/messages?name={name}&email={email}")).ConfigureAwait(false);
             return new HttpResult<PagedList<ClassScheduleMessageDTO>>(hr);
         }
 

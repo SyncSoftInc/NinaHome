@@ -11,6 +11,6 @@ namespace Nina.Api.ContactMessage
         Task<HttpResult<string>> CreateMessageAsync(object cmd);
         Task<HttpResult<string>> DeleteMessageAsync(Guid id);
         Task<HttpResult<ContactMessageDTO>> GetMessageAsync(Guid id);
-        Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(object query);
+        Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, string email = null);
     }
 }

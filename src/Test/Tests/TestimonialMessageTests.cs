@@ -15,11 +15,29 @@ namespace Tests
 
         internal static TestimonialMessageDTO newCmd = new TestimonialMessageDTO
         {
-            ID = new Guid("00000000-0000-0000-0000-000000000001"),
             Name = "test_testimonial_name",
             Message = "test_message",
             Type = "test_type"
         };
+
+        [Test]
+        public async Task Api_TestimonialMessage_BatchCreate()
+        {
+            for (int i = 1; i < 100; i++)
+            {
+                var cmd = new TestimonialMessageDTO
+                {
+                    Name = "batchTest_testimonial_name",
+                    Message = $"test_message_{i}",
+                    Type = $"test_type_{i}"
+                };
+                var hr = await TestimonialMessageApi.CreateMessageAsync(cmd).ConfigureAwait(false);
+                var rs = await hr.GetResultAsync().ConfigureAwait(false);
+
+                Assert.IsTrue(rs.IsSuccess());
+                Assert.IsNotNull(rs);
+            }
+        }
 
         [Test, Order(1)]
         public async Task Api_TestimonialMessage_Create()
@@ -57,11 +75,7 @@ namespace Tests
         [Test, Order(1000)]
         public async Task Api_TestimonialMessage_GetPaged()
         {
-            var hr = await TestimonialMessageApi.GetMessagesAsync(new
-            {
-                Name = newCmd.Name,
-                //Approved = true
-            }).ConfigureAwait(false);
+            var hr = await TestimonialMessageApi.GetMessagesAsync().ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
             Assert.IsTrue(hr.IsSuccess);

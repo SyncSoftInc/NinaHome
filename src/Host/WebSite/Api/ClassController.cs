@@ -38,9 +38,9 @@ namespace Nina.WebSite.Api
             {
                 ID = Guid.NewGuid(),
                 Name = cmd.Name,
-                Voice = cmd.Voice,
+                Phone = cmd.Phone,
                 Email = cmd.Email,
-                Class = cmd.Class,
+                Type = cmd.Type,
                 Message = cmd.Message,
                 CreatedOnUtc = DateTime.UtcNow
             });
@@ -64,11 +64,15 @@ namespace Nina.WebSite.Api
         /// <summary>
         /// Get Paged Class Schedule Message 
         /// </summary>
-        /// <param name="query">Message Query</param>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
         [HttpGet("messages")]
-        public Task<PagedList<ClassScheduleMessageDTO>> GetMessagesAsync(GetClassScheduleMessageQuery query)
-            => ClassScheduleMessageDAL.GetMessagesAsync(query);
+        public Task<PagedList<ClassScheduleMessageDTO>> GetMessagesAsync(string name, string email)
+        {
+            var query = new GetClassScheduleMessageQuery { Name = name, Email = email };
+            return ClassScheduleMessageDAL.GetMessagesAsync(query);
+        }
 
         #endregion
     }
