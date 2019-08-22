@@ -56,13 +56,19 @@ namespace Nina.DataAccess.TestimonialMessage
             // 输出数据
             var fluent = DB.TestimonialMessages.Find(filter);
             var total = await fluent.CountDocumentsAsync().ConfigureAwait(false);
-            var list = await fluent
-                .SortByDescending(x => x.Name)
-                .Skip((query.PageIndex - 1) * query.PageSize)
-                .Limit(query.PageSize)
-                .TryToListAsync<TestimonialMessageDTO>().ConfigureAwait(false);
+
+            fluent = fluent.SortByDescending(x => x.CreatedOnUtc);
+            if (query.PageSize > 0 && query.PageIndex > 0)
+            {
+                fluent = fluent
+                    .Skip((query.PageIndex - 1) * query.PageSize)
+                    .Limit(query.PageSize);
+            }
+
+            var list = await fluent.TryToListAsync().ConfigureAwait(false);
 
             return new PagedList<TestimonialMessageDTO>(total, query.PageSize, list);
+
         }
 
         #endregion

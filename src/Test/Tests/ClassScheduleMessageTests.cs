@@ -66,7 +66,7 @@ namespace Tests
         [Test, Order(100)]
         public async Task Api_ClassScheduleMessage_GetPaged()
         {
-            var hr = await ClassScheduleMessageApi.GetMessagesAsync(newCmd.Name).ConfigureAwait(false);
+            var hr = await ClassScheduleMessageApi.GetMessagesAsync(null, null, 10, 1).ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
             Assert.IsTrue(hr.IsSuccess);

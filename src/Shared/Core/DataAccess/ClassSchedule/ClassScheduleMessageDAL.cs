@@ -53,11 +53,16 @@ namespace Nina.DataAccess.ContactMessage
             // 输出数据
             var fluent = DB.ClassScheduleMessages.Find(filter);
             var total = await fluent.CountDocumentsAsync().ConfigureAwait(false);
-            var list = await fluent
-                .SortByDescending(x => x.Name)
-                .Skip((query.PageIndex - 1) * query.PageSize)
-                .Limit(query.PageSize)
-                .TryToListAsync<ClassScheduleMessageDTO>().ConfigureAwait(false);
+
+            fluent = fluent.SortByDescending(x => x.CreatedOnUtc);
+            if (query.PageSize > 0 && query.PageIndex > 0)
+            {
+                fluent = fluent
+                    .Skip((query.PageIndex - 1) * query.PageSize)
+                    .Limit(query.PageSize);
+            }
+
+            var list = await fluent.TryToListAsync().ConfigureAwait(false);
 
             return new PagedList<ClassScheduleMessageDTO>(total, query.PageSize, list);
         }

@@ -64,7 +64,7 @@ namespace Tests
         [Test, Order(100)]
         public async Task Api_ContactMessage_GetPaged()
         {
-            var hr = await ContactMessageApi.GetMessagesAsync(newCmd.Name).ConfigureAwait(false);
+            var hr = await ContactMessageApi.GetMessagesAsync(null, null, 10, 3).ConfigureAwait(false);
             var rs = await hr.GetResultAsync().ConfigureAwait(false);
 
             Assert.IsTrue(hr.IsSuccess);

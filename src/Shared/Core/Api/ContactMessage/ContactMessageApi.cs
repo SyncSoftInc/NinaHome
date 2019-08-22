@@ -37,9 +37,9 @@ namespace Nina.Api.ContactMessage
             return new HttpResult<ContactMessageDTO>(hr);
         }
 
-        public async Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, string email = null)
+        public async Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, string email = null, int pageSize = 0, int pageIndex = 0)
         {
-            var hr = await HttpClient.GetAsync(null, new Uri($"http://localhost:5002/api/contact/messages?name={name}&email={email}")).ConfigureAwait(false);
+            var hr = await HttpClient.GetAsync(null, new Uri($"http://localhost:5002/api/contact/messages?name={name}&email={email}&pageSize={pageSize}&pageIndex={pageIndex}")).ConfigureAwait(false);
             return new HttpResult<PagedList<ContactMessageDTO>>(hr);
         }
 
