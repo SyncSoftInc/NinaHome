@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nina.WebSite.Controllers
 {
     public class AccountController : Controller
     {
-        [Authorize]
-        public IActionResult Test()
-        {
-            return Content("Test");
-        }
+        //[Authorize]
+        //public IActionResult Test()
+        //{
+        //    return Content("Test");
+        //}
 
         public IActionResult Login()
         {
-            return Content("Login");
+            return View();
         }
     }
 }
