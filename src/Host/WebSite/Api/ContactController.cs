@@ -65,11 +65,19 @@ namespace Nina.WebSite.Api
         /// </summary>
         /// <param name="name"></param>
         /// <param name="email"></param>
+        /// <param name="pageSize">pageSize</param>
+        /// <param name="pageIndex">pageIndex</param>
         /// <returns></returns>
         [HttpGet("messages")]
-        public Task<PagedList<ContactMessageDTO>> GetMessagesAsync(string name, string email)
+        public Task<PagedList<ContactMessageDTO>> GetMessagesAsync(string name, string email, int pageSize, int pageIndex)
         {
-            var query = new GetContactMessageQuery { Name = name, Email = email };
+            var query = new GetContactMessageQuery
+            {
+                Name = name,
+                Email = email,
+                PageSize = pageSize,
+                PageIndex = pageIndex
+            };
             return ContactMessageDAL.GetMessagesAsync(query);
         }
 

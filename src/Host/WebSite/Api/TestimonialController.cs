@@ -72,9 +72,11 @@ namespace Nina.WebSite.Api
         /// Get Paged Testimonial Message
         /// </summary>
         /// <param name="name">name</param>
+        /// <param name="pageSize">pageSize</param>
+        /// <param name="pageIndex">pageIndex</param>
         /// <returns></returns>
         [HttpGet("messages")]
-        public Task<PagedList<TestimonialMessageDTO>> GetMessagesAsync(string name)
+        public Task<PagedList<TestimonialMessageDTO>> GetMessagesAsync(string name, int pageSize, int pageIndex)
         {
             bool? approved;
             if (User.Identity.IsAuthenticated)
@@ -86,7 +88,13 @@ namespace Nina.WebSite.Api
                 approved = true;
             }
 
-            var query = new GetTestimonialMessageQuery { Name = name, Approved = approved };
+            var query = new GetTestimonialMessageQuery
+            {
+                Name = name,
+                Approved = approved,
+                PageSize = pageSize,
+                PageIndex = pageIndex
+            };
             return TestimonialMessageDAL.GetMessagesAsync(query);
         }
 
