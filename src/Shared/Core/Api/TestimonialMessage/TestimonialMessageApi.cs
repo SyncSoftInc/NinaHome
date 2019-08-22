@@ -43,9 +43,9 @@ namespace Nina.Api.TestimonialMessage
             return new HttpResult<ContactMessageDTO>(hr);
         }
 
-        public async Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, int pageSize = 0, int pageIndex = 0)
+        public async Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, bool? approved = null, int pageSize = 0, int pageIndex = 0)
         {
-            var hr = await HttpClient.GetAsync(null, new Uri($"http://localhost:5002/api/testimonial/messages?name={name}&pageSize={pageSize}&pageIndex={pageIndex}")).ConfigureAwait(false);
+            var hr = await HttpClient.GetAsync(null, new Uri($"http://localhost:5002/api/testimonial/messages?name={name}&approved={approved}&pageSize={pageSize}&pageIndex={pageIndex}")).ConfigureAwait(false);
             return new HttpResult<PagedList<ContactMessageDTO>>(hr);
         }
 
