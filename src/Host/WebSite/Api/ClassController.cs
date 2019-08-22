@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace Nina.WebSite.Api
 {
-#if !DEBUG
     [LocalRequestOnly]
-#endif
     [Route("api/class")]
     [ApiController]
     public class ClassController : ControllerBase

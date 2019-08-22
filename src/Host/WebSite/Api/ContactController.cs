@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace Nina.WebSite.Api
 {
-#if !DEBUG
     [LocalRequestOnly]
-#endif
     [Route("api/contact")]
     [ApiController]
     public class ContactController : ControllerBase

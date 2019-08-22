@@ -59,7 +59,6 @@ namespace Nina.WebSite
                        .AllowAnyHeader();
             }));
 
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Nina Home API", Version = "v1" });

@@ -1,0 +1,20 @@
+﻿<h5 id="response" class="text-center pt-5"></h5>
+
+@section Scripts{
+<script>
+    $.ajax({
+        url: '/api/user/authstate',
+        dataType: 'text',
+        type: 'get',
+        contentType: 'text/plain',
+        //data:
+        processData: false,
+        success: function (data, textStatus, jQxhr) {
+            $('#response').html("User Authenticated: " + data.toString());
+        },
+        error: function (jqXhr, textStatus, error) {
+            console.log(error);
+        }
+    })
+</script>
+}
