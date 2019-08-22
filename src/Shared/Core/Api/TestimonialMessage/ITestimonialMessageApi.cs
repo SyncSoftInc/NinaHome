@@ -12,6 +12,6 @@ namespace Nina.Api.TestimonialMessage
         Task<HttpResult<string>> ApproveMessageAsync(object cmd);
         Task<HttpResult<string>> DeleteMessageAsync(Guid id);
         Task<HttpResult<ContactMessageDTO>> GetMessageAsync(Guid id);
-        Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, int pageSize = 0, int pageIndex = 0);
+        Task<HttpResult<PagedList<ContactMessageDTO>>> GetMessagesAsync(string name = null, bool? approved = null, int pageSize = 0, int pageIndex = 0);
     }
 }
