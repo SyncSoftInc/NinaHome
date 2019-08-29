@@ -1,5 +1,6 @@
 ﻿using Nina.Api.ContactMessage;
 using Nina.Api.TestimonialMessage;
+using Nina.Components;
 using Nina.DataAccess;
 using Nina.DataAccess.ContactMessage;
 using Nina.DataAccess.TestimonialMessage;
@@ -26,6 +27,8 @@ namespace SyncSoft.App
 
                     ObjectContainer.Register<IClassScheduleMessageApi, ClassScheduleMessageApi>(LifeCycleEnum.Singleton);
                     ObjectContainer.Register<IClassScheduleMessageDAL, ClassScheduleMessageDAL>(LifeCycleEnum.Singleton);
+
+                    ObjectContainer.Register<IEmailSender, EmailSender>(LifeCycleEnum.Singleton);
                 };
             }
 

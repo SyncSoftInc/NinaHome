@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nina.Commands;
+using Nina.Components;
 using Nina.DataAccess;
 using Nina.DTO;
 using Nina.Queries;
@@ -21,6 +22,9 @@ namespace Nina.WebSite.Api
         private static readonly Lazy<IContactMessageDAL> _lazyContactMessageDAL = ObjectContainer.LazyResolve<IContactMessageDAL>();
         private IContactMessageDAL ContactMessageDAL => _lazyContactMessageDAL.Value;
 
+        private static readonly Lazy<IEmailSender> _lazyEmailSender = ObjectContainer.LazyResolve<IEmailSender>();
+        private IEmailSender EmailSender => _lazyEmailSender.Value;
+
         #endregion
         // *******************************************************************************************************************************
         #region -  CRUD  -
@@ -31,8 +35,9 @@ namespace Nina.WebSite.Api
         /// <param name="cmd">Message Information</param>
         /// <returns></returns>
         [HttpPost("message")]
-        public Task<string> CreateMessageAsync(CreateContactMessageCommand cmd)
-            => ContactMessageDAL.InsertMessageAsync(new ContactMessageDTO
+        public async Task<string> CreateMessageAsync(CreateContactMessageCommand cmd)
+        {
+            var dto = new ContactMessageDTO
             {
                 ID = Guid.NewGuid(),
                 Name = cmd.Name,
@@ -40,7 +45,19 @@ namespace Nina.WebSite.Api
                 Email = cmd.Email,
                 Message = cmd.Message,
                 CreatedOnUtc = DateTime.UtcNow
-            });
+            };
+
+            var msgCode = await ContactMessageDAL.InsertMessageAsync(dto).ConfigureAwait(false);
+            if (msgCode.IsSuccess())
+            {
+                var subject = $"[mylightangel.com]: Contact message from {dto.Email}";
+                var body = $"<p>Name: {dto.Name}</p><br><p>Phone: {dto.Phone}</p></br><p>Email: {dto.Email}</p>";
+
+                await EmailSender.SendAsync("nina@mylightangel.com", "jonathan.poon@syncsoftinc.com", subject, body).ConfigureAwait(false);
+            }
+
+            return msgCode;
+        }
 
         /// <summary>
         /// Delete Contact Message

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nina.Commands;
+using Nina.Components;
 using Nina.DataAccess;
 using Nina.DTO;
 using Nina.Queries;
@@ -21,6 +22,9 @@ namespace Nina.WebSite.Api
         private static readonly Lazy<IClassScheduleMessageDAL> _lazyClassScheduleMessageDAL = ObjectContainer.LazyResolve<IClassScheduleMessageDAL>();
         private IClassScheduleMessageDAL ClassScheduleMessageDAL => _lazyClassScheduleMessageDAL.Value;
 
+        private static readonly Lazy<IEmailSender> _lazyEmailSender = ObjectContainer.LazyResolve<IEmailSender>();
+        private IEmailSender EmailSender => _lazyEmailSender.Value;
+
         #endregion
         // *******************************************************************************************************************************
         #region -  CRUD  -
@@ -31,8 +35,9 @@ namespace Nina.WebSite.Api
         /// <param name="cmd">Message Informaiton</param>
         /// <returns></returns>
         [HttpPost("message")]
-        public Task<string> CreateMessageAsync(CreateClassScheduleMessageCommand cmd)
-            => ClassScheduleMessageDAL.InsertMessageAsync(new ClassScheduleMessageDTO
+        public async Task<string> CreateMessageAsync(CreateClassScheduleMessageCommand cmd)
+        {
+            var dto = new ClassScheduleMessageDTO
             {
                 ID = Guid.NewGuid(),
                 Name = cmd.Name,
@@ -41,7 +46,19 @@ namespace Nina.WebSite.Api
                 Type = cmd.Type,
                 Message = cmd.Message,
                 CreatedOnUtc = DateTime.UtcNow
-            });
+            };
+
+            var msgCode = await ClassScheduleMessageDAL.InsertMessageAsync(dto).ConfigureAwait(false);
+            if (msgCode.IsSuccess())
+            {
+                var subject = $"[mylightangel.com]: Class Schedule message from {dto.Email}";
+                var body = $"<p>Name: {dto.Name}</p><br><p>Phone: {dto.Phone}</p></br><p>Email: {dto.Email}</p>";
+
+                await EmailSender.SendAsync("nina@mylightangel.com", "jonathan.poon@syncsoftinc.com", subject, body).ConfigureAwait(false);
+            }
+
+            return msgCode;
+        }
 
         /// <summary>
         /// Delete Class Schedule Message 
