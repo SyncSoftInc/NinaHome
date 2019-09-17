@@ -1,5 +1,6 @@
 ﻿using SyncSoft.App;
 using SyncSoft.App.Components;
+using SyncSoft.App.Configurations;
 using SyncSoft.App.Logging;
 using System;
 using System.Net;
@@ -24,6 +25,9 @@ namespace Nina.Components
         private static readonly Lazy<ILogger> _lazyLogger = ObjectContainer.LazyResolveLogger<EmailSender>();
         private ILogger Logger => _lazyLogger.Value;
 
+        private static readonly Lazy<IConfigProvider> _lazyConfigProvider = ObjectContainer.LazyResolve<IConfigProvider>();
+        private IConfigProvider ConfigProvider => _lazyConfigProvider.Value;
+
         #endregion
         // *******************************************************************************************************************************
         #region -  Constructor(s)  -
@@ -40,11 +44,34 @@ namespace Nina.Components
         // *******************************************************************************************************************************
         #region -  SendEmailAsync  -
 
-        public async Task<string> SendAsync(string from, string to, string subject, string body)
+        //public async Task<string> SendAsync(string from, string to, string subject, string body)
+        //{
+        //    try
+        //    {
+        //        using (var message = new MailMessage(from, to, subject, body))
+        //        {
+        //            message.IsBodyHtml = true;
+
+        //            await _client.SendMailAsync(message).ConfigureAwait(false);
+        //        }
+
+        //        //Logger.Debug($"Email sent!");
+        //        return MSGCODES.SUCCESS;
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        Logger.Error($"Error: {ex.Message}");
+        //        return ex.GetRootExceptionMessage();
+        //    }
+        //}
+
+        public async Task<string> SendAsync(string subject, string body)
         {
+            var receipt = ConfigProvider.GetValue<string>("Email:Receipt");
+
             try
             {
-                using (var message = new MailMessage(from, to, subject, body))
+                using (var message = new MailMessage(_user, receipt, subject, body))
                 {
                     message.IsBodyHtml = true;
 
@@ -54,7 +81,7 @@ namespace Nina.Components
                 //Logger.Debug($"Email sent!");
                 return MSGCODES.SUCCESS;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error($"Error: {ex.Message}");
                 return ex.GetRootExceptionMessage();

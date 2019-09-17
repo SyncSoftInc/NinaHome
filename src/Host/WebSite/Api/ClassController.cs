@@ -54,7 +54,7 @@ namespace Nina.WebSite.Api
                 var subject = $"[mylightangel.com]: Class Schedule message from {dto.Email}";
                 var body = $"<p>Name: {dto.Name}</p><br><p>Phone: {dto.Phone}</p></br><p>Email: {dto.Email}</p>";
 
-                await EmailSender.SendAsync("nina@mylightangel.com", "jonathan.poon@syncsoftinc.com", subject, body).ConfigureAwait(false);
+                msgCode = await EmailSender.SendAsync(subject, body).ConfigureAwait(false);
             }
 
             return msgCode;
