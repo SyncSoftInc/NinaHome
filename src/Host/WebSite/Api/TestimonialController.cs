@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Nina.Commands;
 using Nina.DataAccess.TestimonialMessage;
 using Nina.DTO;
@@ -47,6 +48,7 @@ namespace Nina.WebSite.Api
         /// <param name="cmd">Approve command information</param>
         /// <returns></returns>
         [HttpPatch("message")]
+        [Authorize]
         public Task<string> ApproveMessageAsync(ApproveTestimonialMessageCommand cmd)
             => TestimonialMessageDAL.ApproveMessageAsync(cmd.ID, cmd.Approved);
 
@@ -55,6 +57,7 @@ namespace Nina.WebSite.Api
         /// </summary>
         /// <param name="id">Message ID</param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("message/{id}")]
         public Task<string> DeleteMessageAsync(Guid id) => TestimonialMessageDAL.DeleteMessageAsync(id);
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Nina.Commands;
 using Nina.Components;
 using Nina.DataAccess;
@@ -65,6 +66,7 @@ namespace Nina.WebSite.Api
         /// <param name="id">Message ID</param>
         /// <returns></returns>
         [HttpDelete("message/{id}")]
+        [Authorize]
         public Task<string> DeleteMessageAsync(Guid id) => ContactMessageDAL.DeleteMessageAsync(id);
 
         /// <summary>
