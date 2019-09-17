@@ -52,7 +52,7 @@ namespace Nina.WebSite.Api
             if (msgCode.IsSuccess())
             {
                 var subject = $"[mylightangel.com]: Contact message from {dto.Email}";
-                var body = $"<p>Name: {dto.Name}</p><br><p>Phone: {dto.Phone}</p></br><p>Email: {dto.Email}</p>";
+                var body = $"<p>Name: {dto.Name}</p><p>Phone: {dto.Phone}</p><p>Email: {dto.Email}</p><p>Message: {dto.Message}</p>";
 
                 msgCode = await EmailSender.SendAsync(subject, body).ConfigureAwait(false);
             }
