@@ -1,0 +1,32 @@
+﻿<html>
+<head>
+    <title>Api Test</title>
+    <style>
+        body {
+            font-family: Consolas;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <button type="button" onclick="clearLogs()">Clear</button>
+    <button type="button" onclick="email()">Email</button>
+
+    <ul id="log">
+        <li>Results:</li>
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function email() {
+            $.post("/api/contact/email", function (rs) {
+                $("#log").append("<li>" + rs + "</li>");
+            });
+        }
+
+        function clearLogs() {
+            $("#log").html("<li>Results:</li>");
+        }
+    </script>
+</body>
+</html>
