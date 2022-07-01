@@ -3,8 +3,12 @@ module github.com/SyncSoftInc/NinaHome/go
 go 1.18
 
 require (
+	github.com/Lukiya/oauth2go v1.5.0
 	github.com/SyncSoftInc/paymentech/pmtcsvc v0.0.0-20220607210613-6cc63cbc9545
+	github.com/shiyanhui/hero v0.0.2
 	github.com/stretchr/testify v1.7.1
+	github.com/syncfuture/armos/go/pass v0.0.0-20220104004844-c522b7ebbe90
+	github.com/syncfuture/armos/go/user v0.0.0-20220104004844-c522b7ebbe90
 	github.com/syncfuture/go v1.8.0
 	github.com/syncfuture/host v1.8.0
 	go.mongodb.org/mongo-driver v1.9.1
@@ -12,7 +16,6 @@ require (
 )
 
 require (
-	github.com/Lukiya/oauth2go v1.5.0 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/armon/go-metrics v0.3.2 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect

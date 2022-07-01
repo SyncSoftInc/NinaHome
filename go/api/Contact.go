@@ -3,19 +3,20 @@ package api
 import (
 	"fmt"
 
+	"github.com/SyncSoftInc/NinaHome/go/core"
 	"github.com/SyncSoftInc/NinaHome/go/dto"
 	"github.com/syncfuture/go/u"
 	"github.com/syncfuture/host"
 )
 
-func AddContactActions(host host.IWebHost) {
-	host.POST("/api/contact/message", createContactMessageAsync)
-	host.DELETE("/api/contact/message/{id}", deleteContactMessageAsync)
-	host.GET("/api/contact/message/{id}", getContactMessageAsync)
-	host.GET("/api/contact/messages", getContactMessagesAsync)
+func AddContactActions() {
+	core.Host.POST("/api/contact/message", createContactMessage)
+	core.Host.DELETE("/api/contact/message/{id}", deleteContactMessage)
+	core.Host.GET("/api/contact/message/{id}", getContactMessage)
+	core.Host.GET("/api/contact/messages", getContactMessages)
 }
 
-func createContactMessageAsync(ctx host.IHttpContext) {
+func createContactMessage(ctx host.IHttpContext) {
 	in := new(dto.ContactMessageDTO)
 	ctx.ReadJSON(in)
 
@@ -33,7 +34,7 @@ func createContactMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(u.StrToBytes(err.Error()))
 }
 
-func deleteContactMessageAsync(ctx host.IHttpContext) {
+func deleteContactMessage(ctx host.IHttpContext) {
 	id := ctx.GetParamString("id")
 	err := _contactMessageDAL.DeleteMessage(id)
 	if host.HandleErr(err, ctx) {
@@ -43,7 +44,7 @@ func deleteContactMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(u.StrToBytes(err.Error()))
 }
 
-func getContactMessageAsync(ctx host.IHttpContext) {
+func getContactMessage(ctx host.IHttpContext) {
 	id := ctx.GetParamString("id")
 	r, err := _contactMessageDAL.GetMessage(id)
 	if host.HandleErr(err, ctx) {
@@ -53,7 +54,7 @@ func getContactMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(getJsonResult(ctx, r))
 }
 
-func getContactMessagesAsync(ctx host.IHttpContext) {
+func getContactMessages(ctx host.IHttpContext) {
 	in := new(dto.ContactMessageQuery)
 	ctx.ReadJSON(in)
 

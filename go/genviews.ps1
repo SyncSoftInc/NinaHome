@@ -1,0 +1,1 @@
+hero -source="./views" -pkgname="views"

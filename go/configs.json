@@ -5,6 +5,14 @@
     "Mongo": {
         "ConnectionString": "mongodb://sa:Famous901@192.168.188.200/admin"
     },
+    "Users": [
+        {
+            "ID": "21E77AA4-01D2-4524-A256-2AF759D17F74",
+            "Username": "Admin",
+            "Password": "6lZQV0fo3R6tl6dgLyx3OOvVzZSgxx8y3SQnCOGOSIVu3GXVxDvXdHjZpWhDMOg6xosOOIX+qdyEYMdWY4TSwQ==",
+            "PasswordSalt": "48sxSz9cVVRoT/vYFodSukDgy0k8lzk8IFhY1nSSBQU="
+        }
+    ],
     "Email": {
         "Receipt": "jonathan.poon@syncsoftinc.com"
     },

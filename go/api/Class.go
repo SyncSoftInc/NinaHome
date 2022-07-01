@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 
+	"github.com/SyncSoftInc/NinaHome/go/core"
 	"github.com/SyncSoftInc/NinaHome/go/dto"
 	"github.com/syncfuture/go/u"
 	"github.com/syncfuture/host"
@@ -11,22 +12,22 @@ import (
 // var ClassActionGroup = host.NewActionGroup(
 // 	nil,
 // 	[]*host.Action{
-// 		host.NewAction("POST/api/class/message", "api_Class_", createMessageAsync),
-// 		host.NewAction("DELETE/api/class/message/{id}", "api_Class_", deleteMessageAsync),
-// 		host.NewAction("GET/api/class/message/{id}", "api_Class_", getMessageAsync),
-// 		host.NewAction("GET/api/class/messages", "api_Class_", getMessagesAsync),
+// 		host.NewAction("POST/api/class/message", "api_Class_", createMessage),
+// 		host.NewAction("DELETE/api/class/message/{id}", "api_Class_", deleteMessage),
+// 		host.NewAction("GET/api/class/message/{id}", "api_Class_", getMessage),
+// 		host.NewAction("GET/api/class/messages", "api_Class_", getMessages),
 // 	},
 // 	nil,
 // )
 
-func AddClassActions(host host.IWebHost) {
-	host.POST("/api/class/message", createClassMessageAsync)
-	host.DELETE("/api/class/message/{id}", deleteClassMessageAsync)
-	host.GET("/api/class/message/{id}", getClassMessageAsync)
-	host.GET("/api/class/messages", getClassMessagesAsync)
+func AddClassActions() {
+	core.Host.POST("/api/class/message", createClassMessage)
+	core.Host.DELETE("/api/class/message/{id}", deleteClassMessage)
+	core.Host.GET("/api/class/message/{id}", getClassMessage)
+	core.Host.GET("/api/class/messages", getClassMessages)
 }
 
-func createClassMessageAsync(ctx host.IHttpContext) {
+func createClassMessage(ctx host.IHttpContext) {
 	in := new(dto.ClassScheduleMessageDTO)
 	ctx.ReadJSON(in)
 
@@ -44,7 +45,7 @@ func createClassMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(u.StrToBytes(err.Error()))
 }
 
-func deleteClassMessageAsync(ctx host.IHttpContext) {
+func deleteClassMessage(ctx host.IHttpContext) {
 	id := ctx.GetParamString("id")
 	err := _classScheduleMessageDAL.DeleteMessage(id)
 	if host.HandleErr(err, ctx) {
@@ -54,7 +55,7 @@ func deleteClassMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(u.StrToBytes(err.Error()))
 }
 
-func getClassMessageAsync(ctx host.IHttpContext) {
+func getClassMessage(ctx host.IHttpContext) {
 	id := ctx.GetParamString("id")
 	r, err := _classScheduleMessageDAL.GetMessage(id)
 	if host.HandleErr(err, ctx) {
@@ -64,7 +65,7 @@ func getClassMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(getJsonResult(ctx, r))
 }
 
-func getClassMessagesAsync(ctx host.IHttpContext) {
+func getClassMessages(ctx host.IHttpContext) {
 	in := new(dto.ClassScheduleMessageQuery)
 	ctx.ReadJSON(in)
 

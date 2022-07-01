@@ -1,19 +1,20 @@
 package api
 
 import (
+	"github.com/SyncSoftInc/NinaHome/go/core"
 	"github.com/SyncSoftInc/NinaHome/go/dto"
 	"github.com/syncfuture/go/u"
 	"github.com/syncfuture/host"
 )
 
-func AddTestimonialActions(host host.IWebHost) {
-	host.POST("/api/testimonial/message", createTestimonialMessageAsync)
-	host.DELETE("/api/testimonial/message/{id}", deleteTestimonialMessageAsync)
-	host.GET("/api/testimonial/message/{id}", getTestimonialMessageAsync)
-	host.GET("/api/testimonial/messages", getTestimonialMessagesAsync)
+func AddTestimonialActions() {
+	core.Host.POST("/api/testimonial/message", createTestimonialMessage)
+	core.Host.DELETE("/api/testimonial/message/{id}", deleteTestimonialMessage)
+	core.Host.GET("/api/testimonial/message/{id}", getTestimonialMessage)
+	core.Host.GET("/api/testimonial/messages", getTestimonialMessages)
 }
 
-func createTestimonialMessageAsync(ctx host.IHttpContext) {
+func createTestimonialMessage(ctx host.IHttpContext) {
 	in := new(dto.TestimonialMessageDTO)
 	ctx.ReadJSON(in)
 
@@ -25,7 +26,7 @@ func createTestimonialMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(u.StrToBytes(err.Error()))
 }
 
-func deleteTestimonialMessageAsync(ctx host.IHttpContext) {
+func deleteTestimonialMessage(ctx host.IHttpContext) {
 	id := ctx.GetParamString("id")
 	err := _testimonialMessageDAL.DeleteMessage(id)
 	if host.HandleErr(err, ctx) {
@@ -35,7 +36,7 @@ func deleteTestimonialMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(u.StrToBytes(err.Error()))
 }
 
-func getTestimonialMessageAsync(ctx host.IHttpContext) {
+func getTestimonialMessage(ctx host.IHttpContext) {
 	id := ctx.GetParamString("id")
 	r, err := _testimonialMessageDAL.GetMessage(id)
 	if host.HandleErr(err, ctx) {
@@ -45,7 +46,7 @@ func getTestimonialMessageAsync(ctx host.IHttpContext) {
 	ctx.Write(getJsonResult(ctx, r))
 }
 
-func getTestimonialMessagesAsync(ctx host.IHttpContext) {
+func getTestimonialMessages(ctx host.IHttpContext) {
 	in := new(dto.TestimonialMessageQuery)
 	ctx.ReadJSON(in)
 

@@ -343,6 +343,8 @@ github.com/savsgio/gotils v0.0.0-20220401102855-e56b59f40436 h1:sfTahD3f2BSjx9U3
 github.com/savsgio/gotils v0.0.0-20220401102855-e56b59f40436/go.mod h1:Gy+0tqhJvgGlqnTF8CVGP0AaGRjwBtXs/a5PA0Y3+A4=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529 h1:nn5Wsu0esKSJiIVhscUtVbo7ada43DJhG55ua/hjS5I=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
+github.com/shiyanhui/hero v0.0.2 h1:RF8fwiIeWbVsdki8LCS905pxLjCQbOz/NcKE0g1ZOJc=
+github.com/shiyanhui/hero v0.0.2/go.mod h1:aBlyf5bmklQfvOmVQm5i04lIGFY7t2QYIJdqEMNGJZM=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sony/sonyflake v1.0.0 h1:MpU6Ro7tfXwgn2l5eluf9xQvQJDROTBImNCfRXn/YeM=
@@ -358,6 +360,10 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.1 h1:5TQK59W5E3v0r2duFAb7P95B6hEeOyEnHRa8MjYSMTY=
 github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/syncfuture/armos/go/pass v0.0.0-20220104004844-c522b7ebbe90 h1:HBO+LvbUqC0FtmsDvbVpIo1DDTPkt9T26H7JFIHD5FM=
+github.com/syncfuture/armos/go/pass v0.0.0-20220104004844-c522b7ebbe90/go.mod h1:DjKRAhWoqQszlXe7MAl95XcoZ1lRYkw8Q3PxSSCOHVg=
+github.com/syncfuture/armos/go/user v0.0.0-20220104004844-c522b7ebbe90 h1:fCrQDdA+dU33ftP1IAJtPYirz+WxDjp1jHq/mg4wXzA=
+github.com/syncfuture/armos/go/user v0.0.0-20220104004844-c522b7ebbe90/go.mod h1:WS946W81xEgSWDkNNWEYisMbkLnZwWXgb8ouR15mZ9E=
 github.com/syncfuture/go v1.8.0 h1:0OCZM4Y/zv0W6iSC8z3FiJGsvIyOla594NCaZCzYjd4=
 github.com/syncfuture/go v1.8.0/go.mod h1:/1Aehv3W7o+2bRyoFNjEchvBD6y5aMS+zAGCh9dPm9A=
 github.com/syncfuture/host v1.8.0 h1:xGhs3o/JH9Fa9pZOvJgWd6TM0JMGEXnkHvM1iHC+FxI=
