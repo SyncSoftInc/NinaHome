@@ -16,5 +16,5 @@
     "Email": {
         "Receipt": "jonathan.poon@syncsoftinc.com"
     },
-    "ListenAddr": ":5006"
+    "ListenAddr": ":7002"
 }

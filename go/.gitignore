@@ -5,7 +5,6 @@
 *.so
 *.dylib
 __debug_bin
-main
 
 # Test binary, built with `go test -c`
 *.test
