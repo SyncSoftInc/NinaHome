@@ -2,16 +2,19 @@ package dto
 
 import (
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type ClassScheduleMessageDTO struct {
-	ID           string    `bson:"_id,omitempty"`
+	BID          string    `bson:"_id,omitempty"`
+	ID           uuid.UUID `bson:"ID"`
 	Name         string    `bson:"Name"`
 	Phone        string    `bson:"Phone"`
 	Email        string    `bson:"Email"`
 	Type         string    `bson:"Type"`
 	Message      string    `bson:"Message"`
-	CreatedOnUtc time.Time `bson:"CreatedOnUtc,omitempty"`
+	CreatedOnUtc time.Time `bson:"CreatedOnUtc"`
 }
 
 type ClassScheduleMessagesResult struct {

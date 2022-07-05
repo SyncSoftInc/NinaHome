@@ -23,7 +23,8 @@ func dialDB(dbName string) (*mongo.Database, error) {
 	// connStr := _connStr + "?db=" + dbName
 	// db, err := smdb.Dial(connStr)
 
-	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(_connStr))
+	opts := options.Client().ApplyURI(_connStr).SetRegistry(mongoRegistry)
+	client, err := mongo.Connect(context.Background(), opts)
 	if err != nil {
 		return nil, serr.WithStack(err)
 	}

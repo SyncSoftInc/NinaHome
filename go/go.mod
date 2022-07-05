@@ -5,9 +5,10 @@ go 1.18
 require (
 	github.com/Lukiya/oauth2go v1.5.0
 	github.com/SyncSoftInc/paymentech/pmtcsvc v0.0.0-20220607210613-6cc63cbc9545
+	github.com/google/uuid v1.3.0
 	github.com/shiyanhui/hero v0.0.2
+	github.com/sony/sonyflake v1.0.0
 	github.com/stretchr/testify v1.7.1
-	github.com/syncfuture/armos/go/pass v0.0.0-20220104004844-c522b7ebbe90
 	github.com/syncfuture/armos/go/user v0.0.0-20220104004844-c522b7ebbe90
 	github.com/syncfuture/go v1.8.0
 	github.com/syncfuture/host v1.8.0
@@ -60,7 +61,6 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/savsgio/dictpool v0.0.0-20220406081701-03de5edb2e6d // indirect
 	github.com/savsgio/gotils v0.0.0-20220401102855-e56b59f40436 // indirect
-	github.com/sony/sonyflake v1.0.0 // indirect
 	github.com/tidwall/gjson v1.14.1 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect

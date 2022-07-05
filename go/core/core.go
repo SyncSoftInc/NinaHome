@@ -1,6 +1,9 @@
 package core
 
 import (
+	"fmt"
+
+	"github.com/sony/sonyflake"
 	"github.com/syncfuture/go/sconfig"
 	"github.com/syncfuture/go/ssecurity"
 	"github.com/syncfuture/host"
@@ -13,6 +16,7 @@ const (
 )
 
 var (
+	_idGenerator   *sonyflake.Sonyflake
 	ConfigProvider sconfig.IConfigProvider
 	Host           host.IWebHost
 )
@@ -20,6 +24,14 @@ var (
 func init() {
 	ConfigProvider = sconfig.NewJsonConfigProvider()
 	Host = sfasthttp.NewFHWebHost(ConfigProvider)
+
+	_idGenerator = sonyflake.NewSonyflake(sonyflake.Settings{})
+}
+
+// GenerateID _
+func GenerateID() string {
+	a, _ := _idGenerator.NextID()
+	return fmt.Sprintf("%x", a)
 }
 
 // HashPassword _

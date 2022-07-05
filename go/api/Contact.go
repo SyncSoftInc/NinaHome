@@ -2,10 +2,11 @@ package api
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/SyncSoftInc/NinaHome/go/core"
 	"github.com/SyncSoftInc/NinaHome/go/dto"
-	"github.com/syncfuture/go/u"
+	"github.com/google/uuid"
 	"github.com/syncfuture/host"
 )
 
@@ -20,6 +21,8 @@ func createContactMessage(ctx host.IHttpContext) {
 	in := new(dto.ContactMessageDTO)
 	ctx.ReadJSON(in)
 
+	in.ID = uuid.New()
+	in.CreatedOnUtc = time.Now().UTC()
 	err := _contactMessageDAL.InsertMessage(in)
 	if host.HandleErr(err, ctx) {
 		return
@@ -30,8 +33,11 @@ func createContactMessage(ctx host.IHttpContext) {
 	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 	body := fmt.Sprintf("<p>Name: %s</p><p>Phone: %s</p><p>Email: %s</p><p>Message: %s</p>", in.Name, in.Phone, in.Email, in.Message)
 	err = _emailSender.Send(subject, mime, body)
+	if host.HandleErr(err, ctx) {
+		return
+	}
 
-	ctx.Write(u.StrToBytes(err.Error()))
+	ctx.Write(nil)
 }
 
 func deleteContactMessage(ctx host.IHttpContext) {
@@ -41,7 +47,7 @@ func deleteContactMessage(ctx host.IHttpContext) {
 		return
 	}
 
-	ctx.Write(u.StrToBytes(err.Error()))
+	ctx.Write(nil)
 }
 
 func getContactMessage(ctx host.IHttpContext) {

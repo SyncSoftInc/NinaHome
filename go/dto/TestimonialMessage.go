@@ -2,15 +2,18 @@ package dto
 
 import (
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type TestimonialMessageDTO struct {
-	ID           string    `bson:"_id,omitempty"`
+	BID          string    `bson:"_id,omitempty"`
+	ID           uuid.UUID `bson:"ID"`
 	Name         string    `bson:"Name"`
 	Message      string    `bson:"Message"`
 	Type         string    `bson:"Type"`
 	Approved     bool      `bson:"Approved"`
-	CreatedOnUtc time.Time `bson:"CreatedOnUtc,omitempty"`
+	CreatedOnUtc time.Time `bson:"CreatedOnUtc"`
 }
 
 type TestimonialMessagesResult struct {

@@ -3,7 +3,7 @@
         "Level": "Debug"
     },
     "Mongo": {
-        "ConnectionString": "mongodb://sa:Famous901@192.168.188.200/admin"
+        "ConnectionString": "mongodb://sa:MvspJ3SuTU#D6FJp@mongo.armos.ai/admin"
     },
     "Users": [
         {

@@ -6,7 +6,6 @@ import (
 	"github.com/SyncSoftInc/NinaHome/go/dto"
 	"github.com/syncfuture/go/serr"
 	"github.com/syncfuture/go/u"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/mgo.v2/bson"
@@ -31,12 +30,12 @@ func (x *ClassScheduleMessageDAL) DeleteMessage(id string) error {
 		return serr.New("ID is null.")
 	}
 
-	mid, err := primitive.ObjectIDFromHex(id)
-	if u.LogError(err) {
-		return serr.WithStack(err)
-	}
+	// mid, err := primitive.ObjectIDFromHex(id)
+	// if u.LogError(err) {
+	// 	return serr.WithStack(err)
+	// }
 
-	_, err = x.Collection.DeleteOne(x.CTX, bson.M{"_id": mid})
+	_, err := x.Collection.DeleteOne(x.CTX, bson.M{"ID": id})
 	return serr.WithStack(err)
 }
 
@@ -46,12 +45,7 @@ func (x *ClassScheduleMessageDAL) GetMessage(id string) (r *dto.ClassScheduleMes
 		return nil, serr.New("ID is null.")
 	}
 
-	mid, err := primitive.ObjectIDFromHex(id)
-	if u.LogError(err) {
-		return nil, serr.WithStack(err)
-	}
-
-	err = x.Collection.FindOne(x.CTX, bson.M{"_id": mid}).Decode(&r)
+	err = x.Collection.FindOne(x.CTX, bson.M{"ID": id}).Decode(&r)
 	return r, serr.WithStack(err)
 }
 
