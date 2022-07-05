@@ -7,29 +7,29 @@ import (
 )
 
 type TestimonialMessageDTO struct {
-	BID          string    `bson:"_id,omitempty"`
-	ID           uuid.UUID `bson:"ID"`
-	Name         string    `bson:"Name"`
-	Message      string    `bson:"Message"`
-	Type         string    `bson:"Type"`
-	Approved     bool      `bson:"Approved"`
-	CreatedOnUtc time.Time `bson:"CreatedOnUtc"`
+	BID          string    `bson:"_id,omitempty" json:"_id"`
+	ID           uuid.UUID `bson:"ID" json:"id"`
+	Name         string    `bson:"Name" json:"name"`
+	Message      string    `bson:"Message" json:"message"`
+	Type         string    `bson:"Type" json:"tpye"`
+	Approved     bool      `bson:"Approved" json:"approved"`
+	CreatedOnUtc time.Time `bson:"CreatedOnUtc" json:"createdOnUtc"`
 }
 
 type TestimonialMessagesResult struct {
-	MsgCode    string
-	PageSize   int
-	TotalCount int
-	Items      []*TestimonialMessageDTO
+	MsgCode    string                   `json:"msgCode"`
+	PageSize   int                      `json:"pageSize"`
+	TotalCount int                      `json:"totalCount"`
+	Items      []*TestimonialMessageDTO `json:"items"`
 }
 
 type TestimonialMessageQuery struct {
-	Name          string
-	Approved      bool
-	PageSize      int
-	PageIndex     int
-	OrderBy       int
-	SortDirection string
+	Name          string `json:"name"`
+	Approved      bool   `json:"approved"`
+	PageSize      int    `json:"pageSize"`
+	PageIndex     int    `json:"pageIndex"`
+	OrderBy       int    `json:"orderBy"`
+	SortDirection string `json:"sortDirection"`
 }
 
 func NewTestimonialMessagesResult(totalcount, pageSize int, items []*TestimonialMessageDTO) *TestimonialMessagesResult {

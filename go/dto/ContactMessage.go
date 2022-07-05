@@ -7,29 +7,29 @@ import (
 )
 
 type ContactMessageDTO struct {
-	BID          string    `bson:"_id,omitempty"`
-	ID           uuid.UUID `bson:"ID"`
-	Name         string    `bson:"Name"`
-	Phone        string    `bson:"Phone"`
-	Email        string    `bson:"Email"`
-	Message      string    `bson:"Message"`
-	CreatedOnUtc time.Time `bson:"CreatedOnUtc"`
+	BID          string    `bson:"_id,omitempty" json:"_id"`
+	ID           uuid.UUID `bson:"ID" json:"id"`
+	Name         string    `bson:"Name" json:"name"`
+	Phone        string    `bson:"Phone" json:"phone"`
+	Email        string    `bson:"Email" json:"email"`
+	Message      string    `bson:"Message" json:"message"`
+	CreatedOnUtc time.Time `bson:"CreatedOnUtc" json:"createdOnUtc"`
 }
 
 type ContactMessagesResult struct {
-	MsgCode    string
-	PageSize   int
-	TotalCount int
-	Items      []*ContactMessageDTO
+	MsgCode    string               `json:"msgCode"`
+	PageSize   int                  `json:"pageSize"`
+	TotalCount int                  `json:"totalCount"`
+	Items      []*ContactMessageDTO `json:"items"`
 }
 
 type ContactMessageQuery struct {
-	Name          string
-	Email         string
-	PageSize      int
-	PageIndex     int
-	OrderBy       int
-	SortDirection string
+	Name          string `json:"name"`
+	Email         string `json:"email"`
+	PageSize      int    `json:"pageSize"`
+	PageIndex     int    `json:"pageIndex"`
+	OrderBy       int    `json:"orderBy"`
+	SortDirection string `json:"sortDirection"`
 }
 
 func NewContactMessagesResult(totalcount, pageSize int, items []*ContactMessageDTO) *ContactMessagesResult {
