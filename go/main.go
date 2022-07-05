@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/SyncSoftInc/NinaHome/go/api"
+	"github.com/SyncSoftInc/NinaHome/go/controllers"
 	"github.com/SyncSoftInc/NinaHome/go/core"
 	"github.com/syncfuture/go/slog"
 )
@@ -12,8 +13,8 @@ func main() {
 	api.AddClassActions()
 	api.AddContactActions()
 	api.AddTestimonialActions()
-	api.AddAccountActions()
 	api.AddUserActions()
+	controllers.AddAccountActions()
 
 	core.Host.ServeFiles("/{filepath:*}", "./wwwroot/")
 	slog.Fatal(core.Host.Run())

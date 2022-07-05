@@ -1,8 +1,10 @@
-package api
+package controllers
 
 import (
 	"net/http"
 	"net/url"
+	"strconv"
+	"time"
 
 	oauth2 "github.com/Lukiya/oauth2go/core"
 	"github.com/SyncSoftInc/NinaHome/go/core"
@@ -32,7 +34,7 @@ func getLogin(ctx host.IHttpContext) {
 func postLogin(ctx host.IHttpContext) {
 	username := ctx.GetFormString("Username")
 	password := ctx.GetFormString("Password")
-	// rememberMe, _ := strconv.ParseBool(ctx.GetFormString("RememberMe"))
+	rememberMe, _ := strconv.ParseBool(ctx.GetFormString("RememberMe"))
 	returnURL := ctx.GetFormString(oauth2.Form_ReturnUrl)
 	if returnURL == "" {
 		returnURL = "/"
@@ -73,27 +75,20 @@ func postLogin(ctx host.IHttpContext) {
 	// ^^^^^^^^^^
 
 	// login success, set login cookie
-	// ToDo...
-	// host := sfasthttp.NewFHOAuthTokenHost(core.ConfigProvider,
-	// 	func(x *sfasthttp.FHOAuthTokenHost) {
-	// 		x.ClaimsGenerator = token.NewDefaultAuthCodeGenerator().Generate()
-	// 		// x.ResourceOwnerValidator = newResourceOwnerValidator()
-	// 	},
-	// )
-	// if rememberMe {
-	// 	ctx.SetEncryptedCookieKV(host.GetAuthCookieName(), user.Username, func(c *http.Cookie) {
-	// 		c.Path = "/"
-	// 		c.HttpOnly = true
-	// 		c.Secure = true
-	// 		c.Expires = time.Now().Add(24 * time.Hour * 14)
-	// 	})
-	// } else {
-	// 	ctx.SetEncryptedCookieKV(core.Host.GetAuthCookieName(), user.Username, func(c *http.Cookie) {
-	// 		c.Path = "/"
-	// 		c.HttpOnly = true
-	// 		c.Secure = true
-	// 	})
-	// }
+	if rememberMe {
+		ctx.SetEncryptedCookieKV(core.COOKIE_KEY, user.Username, func(c *http.Cookie) {
+			c.Path = "/"
+			c.HttpOnly = true
+			c.Secure = true
+			c.Expires = time.Now().Add(24 * time.Hour * 14)
+		})
+	} else {
+		ctx.SetEncryptedCookieKV(core.COOKIE_KEY, user.Username, func(c *http.Cookie) {
+			c.Path = "/"
+			c.HttpOnly = true
+			c.Secure = true
+		})
+	}
 
 	ctx.Redirect(returnURL, http.StatusFound)
 	views.Render(ctx, views.AccountLoginView, model)

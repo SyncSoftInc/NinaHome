@@ -3,9 +3,11 @@ package core
 import (
 	"fmt"
 
+	"github.com/gorilla/securecookie"
 	"github.com/sony/sonyflake"
 	"github.com/syncfuture/go/sconfig"
 	"github.com/syncfuture/go/ssecurity"
+	"github.com/syncfuture/go/u"
 	"github.com/syncfuture/host"
 	"github.com/syncfuture/host/sfasthttp"
 )
@@ -13,6 +15,7 @@ import (
 const (
 	// _saltLength = 32
 	_passLength = 64
+	COOKIE_KEY  = ".NAUTH"
 )
 
 var (
@@ -23,7 +26,14 @@ var (
 
 func init() {
 	ConfigProvider = sconfig.NewJsonConfigProvider()
-	Host = sfasthttp.NewFHWebHost(ConfigProvider)
+
+	hashKey := ConfigProvider.GetString("HashKey")
+	blockKey := ConfigProvider.GetString("BlockKey")
+
+	Host = sfasthttp.NewFHWebHost(ConfigProvider, func(fh *sfasthttp.FHWebHost) {
+		scookie := securecookie.New(u.StrToBytes(hashKey), u.StrToBytes(blockKey))
+		fh.CookieEncryptor = ssecurity.NewSecureCookieEncryptor(scookie)
+	})
 
 	_idGenerator = sonyflake.NewSonyflake(sonyflake.Settings{})
 }
